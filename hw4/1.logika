@@ -1,0 +1,37 @@
+p → q, q → r, ¬r ⊢ ¬p
+{
+    1. p → q            premise
+    2. q → r            premise
+    3. ¬r               premise
+    4. {
+        41. p           assume
+        42. q           →e 1 41
+        43. r           →e 2 42
+        44. ⊥           ¬e 43 3
+    }
+    5. ¬p               ¬i 4
+}
+
+// Negation Introduction
+// {P assume
+//  ...
+//  deduce _|_}
+// ------------
+//     ~P
+
+// Negation Elimination
+// P      ~P
+// ----------
+//    _|_
+
+// Bottom Elimination
+//    _|_
+// -----------
+//     Q
+
+// Proof-By-Contradiction
+// {~P assume
+//  ...
+//  deduce _|_}
+//  -----------
+//       P

@@ -1,0 +1,60 @@
+//(6 points) The purpose of this program is to simulate a key-value pair dictionary implemented with parallel arrays.
+//First read entire program to understand the calculation. 
+//
+//Second create the post condition for findKey, which ensure
+//that if the key is in the sequent, its index is returned, if not -1 is returned. 
+//
+//Next, write the pre and post condition
+//for fetch value. Finally, fix the if condition in the client code so the final assertion is true.
+
+import org.sireum.logika._
+
+// postcondition if result != -1 then result is the index holding b
+def findKey(a:ZS, b: Z): Z = {
+    l"""{
+            ensures (result >= 0 V result == -1) ^ ~(result >= 0 ^ result == -1)
+                    A x: (0 ..< a.size) (a(x) != b) -> (result = -1) V E y: (0 ..< a.size) (a(y) == b) -> (result == y)
+    }"""
+    var rtrn: Z = -1
+    var index: Z = a.size
+
+    while(index >=1){
+        l"""{
+            invariant
+                index >=0
+                index <= a.size
+                rtrn != -1 -> E x:(index .. <a.size) (a(x) = b ^ rtrn = x)
+            modifies index, rtrn
+        }"""
+        index = index - 1
+        if (a(index) == b) {
+            rtrn = index
+        }
+    }
+    return rtrn
+}
+
+// preconditions key is in the the range
+// post condition value returned is at keyth index in values
+def fetchValue(value:ZS, key: Z): Z = {
+    l"""{
+        requires key >= 0
+        ensures result == value(key)
+    }"""
+    return value(key)
+}
+
+//client code  -- this mocks up a key value dictionary
+val keys:ZS = ZS( 4,7,5,8,9) // these should be unique, proving they are unique is pain
+val values:ZS = ZS(-15,11,65,0,3)
+val hash:Z = 7    // this is the key
+
+// should return '1' (index)
+val kvp:Z = findKey(keys,hash)
+
+//fix if condition
+// we only want to go into this conditional if we have the correct kvp
+if (kvp == 1){
+     var finalValue:Z = fetchValue(values, kvp)
+     assert(finalValue == 11)
+}

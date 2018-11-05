@@ -1,0 +1,41 @@
+⊢ (p → q) ∨ (q → r)
+{
+    1. {
+        11. ¬((p → q) ∨ (q → r))        assume
+        12. {
+            121. q                      assume
+            122. {
+                1221. p                 assume
+                1222. p ∧ q             ∧i 1221 121
+                1223. q                 ∧e2 1222
+            }
+            123. p → q                  →i 122
+            124. (p → q) ∨ (q → r)      ∨i1 123
+            125. ⊥                      ¬e 124 11
+        }
+        13. ¬q                          ¬i 12
+        14. {
+            141. q                      assume
+            142. ⊥                      ¬e 141 13
+            143. r                      ⊥e 142
+        }
+        15. q → r                       →i 14
+        16. (p → q) ∨ (q → r)           ∨i2 15
+        17. ⊥                           ¬e 16 11
+    }
+    2. (p → q) ∨ (q → r)                pbc 1
+}
+
+// Proof-By-Contradiction
+// {~P assume
+//  ...
+//  deduce _|_}
+//  -----------
+//       P
+
+// Negation Introduction
+// {P assume
+//  ...
+//  deduce _|_}
+// ------------
+//     ~P

@@ -1,0 +1,71 @@
+import org.sireum.logika._
+
+// global variable machine_count
+//   holds the number of Gatorade bottles currently in the vending machine
+var machineCount: Z = 40
+
+// global variable warehouse_count
+//  holds the number of Gatorade bottles currently in the warehouse
+var warehouseCount: Z = 100
+
+// Procedure vend takes an integer value countToVend indicating the number
+// of gatorade bottles that the user wants to buy and updates
+// the global variables to reflect the state of the vending machine
+// after the associated Gatorade purchase.
+//
+// Note: if the vending machine cannot supply the amount of
+// bottles that the user wants to buy, the operation should not
+// be performed (i.e., the procedure should not be called by a client).
+//
+// As the procedure executes, it updates global variables
+// as expected.
+
+def vend(countToVend: Z): Unit = {   // This procedure doesn't return anything
+    // you have to add pre- and post-conditions, and
+    l"""{
+        requires machineCount > 0
+                 //machineCount_in >= countToVend
+        modifies machineCount
+        ensures machineCount = machineCount_in - countToVend
+    }"""
+    // the implementation for this procedure;
+    machineCount = machineCount - countToVend
+}
+
+// Procedure restock represents the actions of a service man to
+// replenish the vending machine with gatorade bottles.
+// The procedures updates the local variables to reflect the transfer
+// Gatorade from the warehouse to the vending machine.
+//
+// Note: if the warehouse cannot provide the complete count to
+// restock, the procedure should not be used.
+//
+// As the procedure executes, it updates global variables
+// as expected.
+
+def restock(countToRestock: Z): Unit = {  // This procedure doesn't return anything
+    // you have to add pre- and post-conditions, and
+    l"""{
+        requires warehouseCount_in > 0                          // the warehouse count MUST be greater than zero
+                 warehouseCount_in >= countToRestock            // if the warehouse cannot provide the COMPLETE COUNT to restock, the procedure should not be used
+                 machineCount_in + countToRestock <= 40         // we cannot overfill the vending machine!
+                 warehouseCount_in == warehouseCount
+        modifies warehouseCount, machineCount
+        ensures  (warehouseCount = warehouseCount_in - countToRestock)// V !(warehouseCount = warehouseCount_in - countToRestock)
+                 (machineCount = machineCount_in + countToRestock)// V !(machineCount = machineCount_in + countToRestock)
+
+    }"""
+    // the implementation for this procedure;
+    if ((warehouseCount_in > 0) & (warehouseCount_in >= countToRestock) & (machineCount_in + countToRestock <= 40)) {
+        warehouseCount = warehouseCount_in - countToRestock
+        machineCount = machineCount_in + countToRestock
+    }
+}
+
+// client code
+val numWanted: Z = 5
+if (machineCount >= numWanted) {
+    vend(numWanted)
+} else {
+    // do nothing
+}

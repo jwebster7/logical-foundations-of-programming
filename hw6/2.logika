@@ -1,0 +1,73 @@
+import org.sireum.logika._
+
+val exact:Z = readInt("Type exact change (in knuts): ")
+var rounded: Z = exact
+
+l"""{
+    1.  29 ≠ 0                                              algebra
+    2. rounded == exact                                     premise
+}"""
+
+if (rounded % 29 < 16){
+    rounded = rounded - rounded % 29
+    l"""{
+        1. rounded_old % 29 < 16                            premise
+        2. rounded = rounded_old - (rounded_old % 29)       premise
+        3. rounded_old == exact                             premise
+        4. rounded % 29 == 0                                algebra 2       // 1st assertion proven
+
+        // Proving 2nd assertion
+        5. rounded = exact - exact % 29                     algebra 2 3
+        6. exact - rounded = exact % 29                     algebra 5
+        7. exact - rounded = rounded_old % 29               algebra 6 3
+        8. exact - rounded <= 15                            algebra 7 1     // 2nd assertion proven
+
+        // Proving 3rd assertion
+        9. rounded = exact - (rounded_old % 29)             algebra 2 3
+        10. rounded - exact = - (rounded_old % 29)          algebra 9
+        11. rounded - exact <= 15                           algebra 10 1    // 3rd assertion proven
+    }"""
+
+} else {
+    rounded = rounded + 29 - rounded % 29
+    l"""{
+        1. !(rounded_old % 29 < 16)                         premise
+        2. rounded = rounded_old + 29 - rounded_old % 29    premise
+        3. rounded_old == exact                             premise
+        4. rounded_old % 29 >= 15                           algebra 1
+        5. rounded - rounded_old - 29 = -(rounded_old % 29) algebra 2
+        6. rounded_old % 29 = rounded_old + 29 - rounded    algebra 5
+        7. rounded_old + 29 - rounded >= 15                 algebra 6 4
+        8. exact + 29 - rounded >= 15                       subst1 3 7
+        9. exact - rounded >= -14                           algebra 8
+        10. rounded - exact < 16                            algebra 9
+        11. rounded - exact <= 15                           algebra 10      // 3rd assertion proven
+        12. rounded = exact + 29 - exact % 29               subst1 3 2
+        13. rounded > exact                                 algebra 12
+        14. exact - rounded <= 15                           algebra 3 4 13  // 2nd assertion proven
+        15. rounded % 29 == 0                               algebra 2       // 1st assertion proven
+    }"""
+}
+
+assert(rounded % 29 == 0)
+assert(exact - rounded <= 15)
+assert(rounded - exact <= 15)
+
+val sickles: Z = rounded / 29
+l"""{
+    1. rounded % 29 == 0                                    premise         // 1st assertion proven
+    2. exact - rounded <= 15                                premise
+    3. rounded - exact <= 15                                premise
+    4. sickles = rounded/29                                 premise     // c == b/a -> b = c * a + b & a
+    5. rounded = sickles * 29 + rounded % 29                algebra 4
+    6. rounded = sickles * 29 + 0                           subst1 1 5
+    7. sickles * 29 == rounded                              algebra 6
+    71. rounded = sickles * 29                              algebra 7
+    8. sickles * 29 - exact <= 15                           subst2 7 3      // 2nd assertion proven
+    9. exact - sickles * 29 <= 15                           subst1 71 2     // 3rd assertion proven
+}"""
+
+assert(sickles * 29 == rounded)
+assert(sickles * 29 - exact <= 15)
+assert(exact - sickles * 29 <= 15)
+//assert(exact % 29 < 16 | sickles * 29 > exact)

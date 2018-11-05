@@ -1,0 +1,33 @@
+// In order for "(p → q) → r" to be equivalent to "p → (q → r)",
+// the outputs of their truth tables must be the same.
+
+// Output from 5a's truth table from "(p → q) → r":
+// -T: [T T T] [T F F] [T F T] [F F T] [F T T]
+// -F: [T T F] [F T F] [F F F]
+
+// Output from 5b's truth table from "p → (q → r)":
+// -T: [T T T] [T F T] [F T T] [T F F] [F T F] [F F T] [F F F]
+// -F: [T T F]
+
+// As you can see even by looking over the outputs,
+// the outputs from 5a do not equal the outputs from 5b.
+// Therefore, because the outputs differ,
+// "(p → q) → r" is not logically equivalent to  "p → (q → r)"
+
+                *
+--------------------
+p q r | (p → q) → r
+--------------------
+T T T |    T    T
+T T F |    T    F
+T F F |    F    T
+T F T |    F    T
+F F T |    T    T
+F T F |    T    F
+F T T |    T    T
+F F F |    T    F
+--------------------
+
+Contingent
+-T: [T T T] [T F F] [T F T] [F F T] [F T T]
+-F: [T T F] [F T F] [F F F]

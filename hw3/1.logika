@@ -1,0 +1,41 @@
+(p → q) → r ⊢ p → (q → r)
+{
+    1. (p → q) → r              premise
+    2. {
+        // Overarching Implication Introduction;
+        // The left-side must be 'p';
+        // We must deduce 'q -> r';
+        21. p                   assume
+        22. {
+            // Nested Implication Introduction;
+            // The right-side must be 'q -> r';
+            221. q              assume
+            222. {
+                2221. p         assume
+                2222. p ∧ q     ∧i 2221 221
+                2223. q         ∧e2 2222
+            }
+            223. p → q          →i 222
+            224. r              →e 1 223
+        }
+        23. q → r               →i 22
+    }
+    3. p → (q → r)              →i 2
+}
+
+
+
+// Implies Introduction
+// {P assume
+//  ...
+//  deduce Q}
+// ----------
+//   P -> Q
+
+// Implies Elimination
+// P -> Q   P
+// ----------
+//      Q
+
+// Overarching we have an implication introduction
+// We need to build/deduce the right side with a nested subproof before we can introduce that implication

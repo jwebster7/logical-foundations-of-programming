@@ -1,0 +1,22 @@
+p → q ∨ r, q → s, r → t ⊢ p → (t ∨ s)
+{
+    1. p → q ∨ r                  premise
+    2. q → s                      premise
+    3. r → t                      premise
+    4. {
+        41. p                     assume
+        42. q ∨ r                 →e 1 41
+        43. {
+            431. q                assume
+            432. s                →e 2 431
+            433. t ∨ s            ∨i2 432
+        }
+        44. {
+            441. r                assume
+            442. t                →e 3 441
+            443. t ∨ s            ∨i1 442
+        }
+        45. t ∨ s                 ∨e 42 43 44
+    }
+    5. p → t ∨ s                  →i 4
+}

@@ -1,0 +1,19 @@
+import org.sireum.logika._
+
+def makePalindrome(a:ZS): Unit = {
+    l"""{
+        modifies a
+        ensures
+            ∀i: (0 ..< a.size / 2) a(i) = a(a.size - i - 1)
+            ∀i: (0 ..< a.size / 2) a(i) = a_in(i)
+    }"""
+    val size: Z = a.size
+    var j: Z = 0
+    var r: B = true
+
+    while (j < a.size / 2) {
+        a(a.size - j - 1)= a(j)
+        j = j + 1
+    }
+}
+

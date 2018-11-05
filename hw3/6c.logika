@@ -1,0 +1,25 @@
+p ∧ (q → r) ⊢ p → (q → r)
+{
+    1. p ^ (q -> r)         premise
+    2. {
+        21. p               assume
+        22. q -> r          ^e2 1
+    }
+    3. p -> (q -> r)        ->i 2
+}
+
+// Correct Proof Without Parentheses
+// p ∧ q → r ⊢ p → q → r
+//  {
+//      1. p ^ q -> r           premise
+//      2. {
+//          21. p               assume
+//          22. {
+//              221. q          assume
+//              222. p ^ q      ^i 21 221
+//              223. r          ->e 1 222
+//          }
+//          23. q -> r          ->i 22
+//      }
+//      3. p -> q -> r          ->i 2
+//  }

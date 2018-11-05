@@ -1,0 +1,24 @@
+p → q → r ⊢ p ∧ q → r
+{
+    1. p -> (q -> r)        premise
+    2. {
+        21. p ^ q           assume
+        22. p               ^e1 21
+        23. q -> r          ->e 1 22
+        24. q               ^e2 21
+        25. r               ->e 23 24
+    }
+    3. (p ^ q) -> r         ->i 2
+}
+
+// Implies Introduction
+// {P assume
+//  ...
+//  deduce Q}
+// ----------
+//   P -> Q
+
+// Implies Elimination
+// P -> Q   P
+// ----------
+//      Q

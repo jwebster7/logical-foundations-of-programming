@@ -1,0 +1,16 @@
+∃ x ∃ y p(x, y) ⊢ ∃ y ∃ x p(x, y)
+{
+    1. ∃ x ∃ y p(x, y)              premise
+    2. {
+        // E x becomes 'a', p(x, y) becomes p(a, y)
+        21. a ∃ y p(a, y)           assume
+        22. {
+            // E y becomes 'b', p(a, y) becomes p(a, b)
+            221. b p(a, b)          assume
+            222. ∃ x p(x, b)        ∃i 221 a
+            223. ∃ y ∃ x p(x, y)    ∃i 222 b
+        }
+        23. ∃ y ∃ x p(x, y)         ∃e 21 22
+    }
+    3. ∃ y ∃ x p(x, y)              ∃e 1 2
+}

@@ -1,0 +1,50 @@
+import org.sireum.logika._
+def main(): Unit ={
+    val a1: ZS = ZS(1, 3, 77, 12, 11,2)
+    val b1: Z = 9
+
+    // Change the value of bigenough and the parameters passed to filter
+    var bigenough: B = true
+    if(bigenough){
+        val filtered : ZS = filter(ZS(1,3,11,5),b1)
+        //val filtered : ZS = filter(a1,b1)
+        print("the first value greater than 9 is ", filtered(0))
+    } else {
+        print("there are no values greater than 9 in input array")
+    }
+}
+
+// Write loop code and invariants to meet the post condition
+//  Do not modify the function's pre/post conditions
+def someGreaterThan(a: ZS, b:Z ): B = {
+    l"""{
+        ensures
+            result → (∃i: (0 ..< a.size) a(i) > b)
+            ¬result → (∀i: (0 ..< a.size) a(i) ≤ b)
+    }"""
+    var r: B = false
+    var j: Z = 0
+    return r
+}
+
+
+// write pre and post conditions to ensure
+// 1. every element in inArray is unique
+// 2. every element in result is unique
+// 3. every element of result is in inArray
+// 3. every element of inArray > tValue is in result 
+// write other conditions (modifies/ requires) as necessary
+// DO NO CHANGE ANY CODE in Filter
+def filter(inArray:ZS, tValue : Z): ZS = {
+    var index : Z = 0
+    var returnArray : ZS = ZS()
+
+    // Provide loop invariant and modifies clause(s)
+    while (index < inArray.size){
+        if (inArray(index) > tValue){
+            returnArray = returnArray :+ inArray(index)
+        }
+        index = index +1
+    }
+    return returnArray
+}

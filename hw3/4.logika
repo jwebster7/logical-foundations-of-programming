@@ -1,0 +1,12 @@
+p → s ⊢ p ∧ q → r ∨ s
+{
+    1. p → s             premise
+    2. {
+        21. p ∧ q        assume
+        22. p            ∧e1 21
+        23. q            ∧e2 21
+        24. s            →e 1 22
+        25. r ∨ s        ∨i2 24
+    }
+    3. p ∧ q → r ∨ s     →i 2
+}

@@ -1,0 +1,67 @@
+¬(p ∧ q ∧ r) ⊢ ¬p ∨ ¬q ∨ ¬r
+{
+    1. ¬(p ∧ q ∧ r)                     premise
+    2. {
+        21. ¬(¬p ∨ ¬q ∨ ¬r)             assume
+        22. {
+            221. ¬p                     assume
+            222. ¬p ∨ ¬q                ∨i1 221
+            223. ¬p ∨ ¬q ∨ ¬r           ∨i1 222
+            224. ⊥                      ¬e 223 21
+        }
+        23. p                           pbc 22
+        24. {
+            241. ¬q                     assume
+            242. ¬p ∨ ¬q                ∨i2 241
+            243. ¬p ∨ ¬q ∨ ¬r           ∨i1 242
+            244. ⊥                      ¬e 243 21
+        }
+        25. q                           pbc 24
+        26. {
+            261. ¬r                     assume
+            262. ¬p ∨ ¬q ∨ ¬r           ∨i2 261
+            263. ⊥                      ¬e 262 21
+        }
+        27. r                           pbc 26
+        28. p ∧ q                       ∧i 23 25
+        29. p ∧ q ∧ r                   ∧i 28 27
+        30. ⊥                           ¬e 29 1
+    }
+    3. ¬p ∨ ¬q ∨ ¬r                     pbc 2
+}
+
+// Negation Introduction
+// {P assume
+//  ...
+//  deduce _|_}
+// ------------
+//     ~P
+
+// Negation Elimination
+// P      ~P
+// ----------
+//    _|_
+
+// Bottom Elimination
+//    _|_
+// -----------
+//     Q
+
+// Proof-By-Contradiction
+// {~P assume
+//  ...
+//  deduce _|_}
+//  -----------
+//       P
+
+// Implies Introduction
+// {P assume
+//  ...
+//  deduce Q}
+// ----------
+//   P -> Q
+
+// Implies Elimination
+// P -> Q   P
+// ----------
+//      Q

@@ -1,0 +1,18 @@
+// Just a comment for pushing
+           *
+--------------------
+p q r | ¬p → q V r  //~p -> (q V r)
+--------------------
+T T T | F  T   T
+T T F | F  T   T
+T F T | F  T   T
+T F F | F  T   F
+F T T | T  T   T
+F F T | T  T   T
+F T F | T  T   T
+F F F | T  F   F
+--------------------
+
+Contingent
+-T: [F T F] [F F T] [F T T] [T F F] [T F T] [T T F] [T T T]
+-F: [F F F]

@@ -1,0 +1,97 @@
+// Joe Webster
+// CIS 301: HW2
+1. "If an air bubble is detected, the device shall raise an alarm on
+    the operator interface and transition to IDLE mode"
+
+    Propositional Variables
+        P = "An air buble is detected"
+        Q = "The device raises an alarm on the operator interface"
+        R = "The next Mode is IDLE Mode"
+
+    Logical Formalization of Requirement:
+        P -> (Q ^ R)
+
+2a. "The device is in PATIENT BOLUS sub mode only when it is in ACTIVE mode"
+
+    Propositional Variables
+        P = "The device is in PATIENT BOLUS sub mode"
+        Q = "The device is in ACTIVE mode"
+
+    Logical Formalization of Requirement:
+        P -> Q
+
+2b. We could not use "if and only if" because there exists two other possible
+    sub modes while the device is in ACTIVE MODE:
+        1. SQUARE BOLUS sub mode
+        2. BASAL sub mode
+    So the device being in ACTIVE mode does not necessarily imply the device
+    WILL be in PATIENT BOLUS sub mode. But if the device is in PATIENT BOLUS
+    sub mode, then the device HAS to be in ACTIVE mode. If and only if usually
+    imply a bi-implication. And (P -> Q) != (P <-> Q)
+
+3.  Propositional Variables
+        P = "The device infuses at the basal rate f"
+        Q = "The device is in the BASAL submode"
+
+    Logical Formalization of Requirement:
+        (P -> Q) ^ (Q -> P)
+        OR
+        P <-> Q (P bi-implies Q)
+
+4.  "If the device is in Active Mode, it is either in the BASAL sub mode, SQUARE
+     BOLUS sub mode or PATIENT BOLUS sub mode"
+
+     Propositional Variables
+        P = "The device is in ACTIVE Mode"
+        Q = "The device is in BASAL sub mode"
+        R = "The device is in SQUARE BOLUS sub mode"
+        S = "The device is in PATIENT BOLUS sub mode"
+
+     Logical Formalization of Requirement:
+        P -> (Q V R V S) ^ ~(Q ^ R) ^ ~(Q ^ S) ^ ~(S ^ R)
+
+        If the device is in ACTIVE Mode, then it is in BASAL or SQUARE or PATIENT BOLUS submode,
+        but not more than 1 at time.
+
+5.  "When the patient bolus button is pressed and the device is in Active Mode
+     and the lockout interval is not in effect, the device shall transition to
+     PATIENT BOLUS sub mode unless it is in SQUARE BOLUS sub mode."
+
+     Propositional Variables
+        P = "Patient bolus button is pressed"
+        Q = "Device in Active Mode"
+        R = "Lockout interval is in effect"
+        S = "The device is in SQUARE BOLUS sub mode"
+        T = "Next mode is PATIENT BOLUS sub mode"
+
+     Logical Formalization of Requirements:
+        (P ^ Q ^ ~R ^ ~S) -> T
+
+6a. P -> (Q ^ R)
+
+    If an air bubble is detected, then the device raises an alarm on the operator interface and
+    next mode is IDLE mode
+
+6b. P -> Q
+
+    If the device is in PATIENT BOLUS sub mode, then the device is in ACTIVE Mode.
+
+6c. (P -> Q) ^ (Q -> P)
+
+    If the device infuses at the basal rate f, then the device is in the BASAL sub mode and if the
+    device is in BASAL sub mode, then the device infuses at the basal rate.
+
+    OR
+
+    P <-> Q
+
+    The device infuses at the basal rate f if and only if the device is in the BASAL sub mode.
+
+6d. P -> (Q V R V S) ^ ~(Q ^ R) ^ ~(Q ^ S) ^ ~(S ^ R)
+
+    If the device is in ACTIVE Mode, then the device is in BASAL sub mode or SQUARE BOLUS sub mode
+    or PATIENT BOLUS sub mode and not both BASAL sub mode and SQUARE BOLUS sub mode and not both
+    BASAL sub mode and PATIENT BOLUS sub mode and not both PATIENT BOLUS sub mode and SQUARE BOLUS
+    sub mode.
+
+
